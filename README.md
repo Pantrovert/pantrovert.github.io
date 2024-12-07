@@ -1,5 +1,5 @@
 # 💫 About Me:
-Aerospace Engineer, Astrophysics, Mission Design, Geeks<br>To thine own self be true.
+Aerospace Engineer, Aircraft Maintenance Technician, Astrophysics, Mission Design, Geeks<br>To thine own self be true.
 
 
 # 💻 Tech Stack:
