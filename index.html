@@ -61,10 +61,16 @@
           <div><b>Pantaleo Prosper Kiruwa</b><span>Aerospace engineer, Tanzania</span></div>
         </div>
       </div>
-      <div class="rotor-hud mono" aria-live="off">
-        <span>Rotor speed <b id="rpmV">0</b> rpm</span>
-        <span>Blade-pass frequency <b class="amber" id="bpfV">0.0</b> Hz</span>
-        <span>Move across the page to change the speed</span>
+      <div class="scope" role="group" aria-label="Rotor vibration monitor">
+        <div class="scope-head mono"><span>Rotor monitor</span><b id="healthV">Healthy</b></div>
+        <canvas id="scope" aria-hidden="true"></canvas>
+        <div class="scope-rows mono">
+          <span>Rotor <b id="rpmV">0</b> rpm</span>
+          <span>Tip speed <b id="tipV">Mach 0.00</b></span>
+          <span>Blade pass <b class="amber" id="bpfV">0.0</b> Hz</span>
+        </div>
+        <button class="fault" id="faultBtn" type="button" aria-pressed="false">Inject blade fault</button>
+        <p class="scope-note mono">Move across the page to change speed.</p>
       </div>
       <div class="climb"><i></i>Scroll to climb</div>
     </section>
