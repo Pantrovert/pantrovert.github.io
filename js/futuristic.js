@@ -85,10 +85,14 @@
 
   /* ---------- Rotor (hero) ---------- */
   const hero = $('#home'), rc = $('#rotor'), rx = rc.getContext('2d');
-  const rpmV = $('#rpmV'), bpfV = $('#bpfV');
+  const rpmV = $('#rpmV'), bpfV = $('#bpfV'), tipV = $('#tipV'), healthV = $('#healthV'), faultBtn = $('#faultBtn');
+  const mc = $('#scope'), mg = mc.getContext('2d');
   let rpmTarget = 150, rpm = reduce ? 150 : 0, theta = .4, heroVisible = true, tt = 0, trail = [];
+  let faultOn = false, fault = 0, ph = 0, trace = [], lastHealth = '', roT = 0;
+  const TN = 240, LIMIT = .5, HARM = [[1, '1P'], [2, '2P'], [3, '3P'], [4, '4P'], [8, '8P']];
   const sizeRotor = () => { const r = rc.getBoundingClientRect(); rc.width = Math.round(r.width * dpr); rc.height = Math.round(r.height * dpr); };
-  sizeRotor(); addEventListener('resize', sizeRotor);
+  const sizeScope = () => { const r = mc.getBoundingClientRect(); mc.width = Math.round(r.width * dpr); mc.height = Math.round(r.height * dpr); };
+  sizeRotor(); sizeScope(); addEventListener('resize', () => { sizeRotor(); sizeScope(); });
 
   hero.addEventListener('pointermove', e => {
     const r = hero.getBoundingClientRect();
@@ -98,13 +102,15 @@
 
   const drawBlades = (cx, cy, R, ang, alpha, tip) => {
     for (let i = 0; i < 4; i++) {
-      const flex = Math.sin(tt * 9 + i * 1.7) * R * .022 * (rpm / 300);
-      rx.save(); rx.translate(cx, cy); rx.rotate(ang + i * Math.PI / 2);
+      const bad = tip && i === 1 && fault > .02;            // blade 2 is the one out of track
+      const flex = Math.sin(tt * 9 + i * 1.7) * R * .022 * (rpm / 300) * (bad ? 1 + fault * 3 : 1);
+      const col = bad ? '255,200,87' : '228,240,252';
+      rx.save(); rx.translate(cx, cy); rx.rotate(ang + i * Math.PI / 2 + (bad ? fault * .05 : 0));
       rx.beginPath();
       rx.moveTo(R * .09, -R * .035); rx.lineTo(R * .97, -R * .012 + flex);
       rx.lineTo(R, R * .012 + flex); rx.lineTo(R * .09, R * .035); rx.closePath();
-      rx.fillStyle = `rgba(228,240,252,${alpha * .5})`; rx.fill();
-      rx.strokeStyle = `rgba(228,240,252,${alpha})`; rx.lineWidth = dpr; rx.stroke();
+      rx.fillStyle = `rgba(${col},${alpha * (bad ? .7 : .5)})`; rx.fill();
+      rx.strokeStyle = `rgba(${col},${alpha})`; rx.lineWidth = dpr; rx.stroke();
       if (tip) { rx.fillStyle = '#FFC857'; rx.beginPath(); rx.arc(R, flex, 4 * dpr, 0, 6.283); rx.fill(); }
       rx.restore();
     }
@@ -129,7 +135,7 @@
     drawBlades(cx, cy, R, theta, .95, true);
 
     // hub + 1P vibration trace (the hub wobbles once per revolution)
-    const amp = (2 + rpm / 70) * dpr, hx = cx + Math.cos(theta * 1) * amp, hy = cy + Math.sin(theta * 1) * amp;
+    const amp = (2 + rpm / 70) * dpr * (1 + fault * 2.5), hx = cx + Math.cos(theta * 1) * amp, hy = cy + Math.sin(theta * 1) * amp;
     trail.push([hx, hy]); if (trail.length > 36) trail.shift();
     rx.beginPath(); trail.forEach(([x, y], i) => i ? rx.lineTo(x, y) : rx.moveTo(x, y));
     rx.strokeStyle = 'rgba(255,200,87,.6)'; rx.stroke();
@@ -137,6 +143,66 @@
     rx.strokeStyle = '#FFC857'; rx.lineWidth = 2 * dpr; rx.stroke();
     rx.fillStyle = '#FFC857'; rx.beginPath(); rx.arc(hx, hy, 3.5 * dpr, 0, 6.283); rx.fill();
   };
+
+  /* ---------- Vibration monitor: a simple model of what an accelerometer on the airframe would see ---------- */
+  // Vibration sits at multiples of rotor speed ("P" = per revolution). With 4 blades, 4P is the blade-pass tone.
+  // A blade out of track adds a 1P term; imbalance force grows with the square of rotor speed.
+  const amps = () => { const k = rpm / 300; return [k * .12 + .95 * fault * k * k, k * .08, k * .05, k * .55, k * .12]; };
+  const sample = dt => {
+    ph += rpm / 60 * 2 * Math.PI * dt * .1;                  // trace runs at 10% speed so the waves are readable
+    const A = amps(); let s = 0;
+    HARM.forEach(([n], i) => { s += A[i] * Math.sin(n * ph + i * 1.3); });
+    s += (Math.random() - .5) * .08 * (rpm / 300);
+    trace.push(s); if (trace.length > TN) trace.shift();
+  };
+  const mtxt = (s, x, y, al = 'left', col = 'rgba(169,189,208,.8)') => { mg.font = `${9.5 * dpr}px "Martian Mono",monospace`; mg.textAlign = al; mg.fillStyle = col; mg.fillText(s, x, y); };
+  const drawScope = () => {
+    const W = mc.width, H = mc.height; if (!W) return;
+    const A = amps(), split = H * .52, bad = A[0] > LIMIT;
+    mg.clearRect(0, 0, W, H);
+    mg.lineWidth = dpr; mg.strokeStyle = 'rgba(228,240,252,.16)';
+    mg.beginPath(); mg.moveTo(0, split / 2); mg.lineTo(W, split / 2); mg.stroke();
+    mg.strokeStyle = bad ? '#FFC857' : '#6FB7FF'; mg.lineWidth = 1.5 * dpr; mg.beginPath();
+    trace.forEach((s, i) => { const x = i / (TN - 1) * W, y = split / 2 - clamp(s / 3.4, -1, 1) * split * .44; i ? mg.lineTo(x, y) : mg.moveTo(x, y); });
+    mg.stroke();
+    mtxt('airframe acceleration, 10% speed', 0, 10 * dpr);
+    const base = H - 16 * dpr, top = split + 14 * dpr, bh = base - top, bw = W / HARM.length;
+    mg.strokeStyle = 'rgba(228,240,252,.16)'; mg.lineWidth = dpr; mg.beginPath(); mg.moveTo(0, base); mg.lineTo(W, base); mg.stroke();
+    HARM.forEach(([n, label], i) => {
+      const h = Math.max(clamp(A[i] / 1.6, 0, 1) * bh, 1.5 * dpr);
+      mg.fillStyle = i === 0 && bad ? '#FFC857' : 'rgba(111,183,255,.85)';
+      mg.fillRect(i * bw + bw * .22, base - h, bw * .56, h);
+      mtxt(label, i * bw + bw / 2, base + 12 * dpr, 'center');
+    });
+    const ly = base - LIMIT / 1.6 * bh;
+    mg.setLineDash([3 * dpr, 4 * dpr]); mg.strokeStyle = 'rgba(255,200,87,.7)'; mg.beginPath(); mg.moveTo(0, ly); mg.lineTo(W * .4, ly); mg.stroke(); mg.setLineDash([]);
+    mtxt('1P limit', W * .4 + 6 * dpr, ly + 3 * dpr, 'left', 'rgba(255,200,87,.85)');
+  };
+  const readouts = () => {
+    rpmV.textContent = Math.round(rpm);
+    bpfV.textContent = (rpm / 60 * 4).toFixed(1);
+    tipV.textContent = 'Mach ' + (rpm * 2 * Math.PI / 60 * 5.5 / 340).toFixed(2);   // 5.5 m rotor radius
+    const bad = amps()[0] > LIMIT, txt = bad ? 'Inspect 1P imbalance' : 'Healthy';
+    if (txt !== lastHealth) { healthV.textContent = txt; healthV.classList.toggle('warn', bad); lastHealth = txt; }
+  };
+  const stepRotor = dt => {
+    fault += ((faultOn ? 1 : 0) - fault) * Math.min(1, dt * 3);
+    rpm += (rpmTarget - rpm) * Math.min(1, dt * 1.6);
+    theta += rpm * 2 * Math.PI / 60 * dt; tt += dt;
+    sample(dt); drawRotor(dt); drawScope();
+    roT += dt; if (roT > .1) { readouts(); roT = 0; }
+  };
+  const renderOnce = () => {                                   // still frame, used when the person prefers reduced motion
+    fault = faultOn ? 1 : 0; trace = [];
+    for (let i = 0; i < TN; i++) sample(1 / 60);
+    drawRotor(0); drawScope(); readouts();
+  };
+  faultBtn.addEventListener('click', () => {
+    faultOn = !faultOn;
+    faultBtn.setAttribute('aria-pressed', String(faultOn));
+    faultBtn.textContent = faultOn ? 'Clear fault' : 'Inject blade fault';
+    if (reduce) renderOnce();
+  });
 
   /* ---------- Main loop ---------- */
   let prev = performance.now(), hudT = 0;
@@ -148,18 +214,19 @@
     hudT += dt;
     if (hudT > .08) { machV.textContent = 'Mach ' + clamp(Math.abs(vel) / 900, 0, 5).toFixed(1); hudT = 0; }
 
-    if (heroVisible && !reduce) {
-      rpm += (rpmTarget - rpm) * Math.min(1, dt * 1.6);
-      theta += rpm * 2 * Math.PI / 60 * dt; tt += dt;
-      drawRotor(dt);
-      rpmV.textContent = Math.round(rpm);
-      bpfV.textContent = (rpm / 60 * 4).toFixed(1);
-    }
+    if (heroVisible && !reduce) stepRotor(dt);
     if (!reduce) drawStars(now);
     requestAnimationFrame(frame);
   };
   readScroll();
-  if (reduce) { drawRotor(0); drawStars(0); rpmV.textContent = rpm; bpfV.textContent = (rpm / 60 * 4).toFixed(1); addEventListener('scroll', () => drawStars(0), { passive: true }); }
+  if (reduce) {
+    // Reduced motion: no autoplay. A still frame is drawn, and the rotor runs only while the pointer is over the hero.
+    drawStars(0); renderOnce(); addEventListener('scroll', () => drawStars(0), { passive: true });
+    let live = false, last = 0;
+    const loop = now => { if (!live) return; stepRotor(Math.min((now - last) / 1000, .05)); last = now; requestAnimationFrame(loop); };
+    hero.addEventListener('pointerenter', () => { if (!live) { live = true; last = performance.now(); requestAnimationFrame(loop); } });
+    hero.addEventListener('pointerleave', () => { live = false; });
+  }
   else requestAnimationFrame(frame);
 
   /* ---------- Project preview that follows the pointer ---------- */
