@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a2a42">
+  <meta name="description" content="A technical seminar report on hypersonic vehicles: dynamics, control and enabling technologies. By Pantaleo Prosper Kiruwa.">
+  <meta property="og:title" content="Hypersonic Vehicles | Pantaleo Kiruwa">
+  <meta property="og:site_name" content="Pantaleo's Portfolio Website">
+  <meta property="og:description" content="The engineering challenges and technologies behind flight at extreme speeds.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="../../images/photo_2023-07-27_17-28-12.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Martian+Mono:wght@300;400;500&family=Unbounded:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/futuristic.css">
+  <link rel="stylesheet" href="../../css/project-climb.css">
+  <title>Hypersonic Vehicles | Pantaleo Kiruwa</title>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3TTZ0YVPTH"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-3TTZ0YVPTH');</script>
+</head>
+<body data-demo="hyper">
+  <a class="skip" href="#case">Skip to content</a>
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <aside class="rail" aria-label="Scroll altitude indicator">
+    <div class="rail-mark" aria-hidden="true">PK</div>
+    <div class="tape" aria-hidden="true"><div class="tape-scale" id="tape"></div></div>
+    <div class="readouts"><div><small>Altitude</small><b id="altV">0 m</b></div><div><small>Airspeed</small><b id="machV">Mach 0.0</b></div><div><small>Layer</small><b id="layerV">Troposphere</b></div></div>
+  </aside>
+  <header class="topbar">
+    <a class="name" href="../../">Pantaleo Kiruwa</a>
+    <button class="burger" aria-label="Open navigation" aria-expanded="false">☰</button>
+    <nav class="nav" aria-label="Main navigation">
+      <a data-nav="home" href="../../">Home</a><a data-nav="about" href="../../#about">About</a><a data-nav="experience" href="../../#experience">Experience</a><a class="active" data-nav="projects" href="../../#projects">Projects</a><a class="nav-cta" href="../../#contact">Let's connect</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="phero">
+      <div>
+        <a class="back" href="../../#projects">← All projects</a>
+        <div class="mono">Advanced aerospace</div>
+        <h1 aria-label="Hypersonic Vehicles">
+          <span class="ln"><span>Hypersonic</span></span><span class="ln"><span>Vehicles</span></span>
+        </h1>
+        <p class="lede">The abstract, methodology and insights, project overview and links to the official analysis report.</p>
+        <div class="hero-actions">
+          <a class="btn solid" href="https://www.researchgate.net/publication/379809253_Technical_Seminar_on_Emerging_Modern_Technologies_in_the_Aerospace_Industry_Report_on_HYPERSONIC_VEHICLES_Submitted_in_partial_fulfilment_for_the_award_of_the_degree_of_BACHELOR_OF_TECHNOLOGY_IN_AEROS" target="_blank" rel="noreferrer">Open on ResearchGate</a>
+          <a class="btn ghost" href="#case">Read the case</a>
+        </div>
+      </div>
+      <div class="demo" id="demo" role="img" aria-label="Interactive demo: a wedge-shaped vehicle with its Mach cone and nose heating as speed increases">
+        <canvas></canvas>
+        <span class="demo-tag mono">Try it: Mach cone and nose heating</span>
+        <span class="demo-hint mono">Move left to right to change Mach number</span>
+        <div class="demo-hud" id="hud"></div>
+      </div>
+    </section>
+
+    <section class="sec" id="case">
+      <div class="wrap case">
+        <aside class="side">
+          <div><small>Approach</small><p>Research and technical review</p></div>
+          <div><small>Focus</small><p>Dynamics, control and enabling technologies of hypersonic vehicles</p></div>
+          <div><small>Type</small><p>Technical seminar on emerging technologies in the aerospace industry</p></div>
+        </aside>
+        <div class="body">
+          <div class="block">
+            <h2>Flight at extreme speeds.</h2>
+            <p class="first">The aviation field is growing increasingly interested in hypersonic speed for passenger transportation, which requires careful study of enabling technologies for optimal vehicle design.</p>
+            <p>This paper aims to describe the dynamics and control of these vehicles, taking into account some of the recent experimental models.</p>
+            <p>While significant work has been done on air-breathing hypersonic technology, there remain critical technological gaps that need to be filled before hypersonic transport systems can be a reality.</p>
+            <p>Hypersonic flight has long been a goal of aerospace engineers, as it promises to revolutionize air and space travel by dramatically reducing travel times and enabling access to space at a lower cost.</p>
+          </div>
+          <div class="block">
+            <h2>Read the full report.</h2>
+            <div class="links"><a class="btn solid" href="../../Hypersonic%20Vehicles.pdf" rel="noreferrer">Project report (PDF)</a><a class="btn ghost" href="../../#projects">Go back</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <a class="nextp" href="../optimization-of-airfoils/"><div><span class="mono">Next project</span><h2>Optimization of Airfoils</h2></div><span class="go" aria-hidden="true">→</span></a>
+  </main>
+
+  <footer class="foot"><span>Designed with curiosity. Built for the journey.</span><span>© <span id="year">2026</span> Pantaleo Prosper Kiruwa</span></footer>
+  <script src="../../js/climb.js"></script>
+  <script src="../../js/project.js"></script>
+  <script src="//code.tidio.co/qowt5kyd8bxl5egcgkfzlqbwpndoaizb.js" async></script>
+</body>
+</html>
