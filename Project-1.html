@@ -3,90 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0a2a42">
-  <meta name="description" content="Optimization of the NACA 64A210 airfoil using ANSYS Fluent, X-Foil and MATLAB. A project by Pantaleo Prosper Kiruwa.">
-  <meta property="og:title" content="Optimization of Airfoils | Pantaleo Kiruwa">
-  <meta property="og:site_name" content="Pantaleo's Portfolio Website">
-  <meta property="og:description" content="Improving lift, drag and lift-to-drag ratio of the NACA 64A210 airfoil.">
-  <meta property="og:type" content="website">
-  <link rel="icon" href="images/photo_2023-07-27_17-28-12.jpg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Martian+Mono:wght@300;400;500&family=Unbounded:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/futuristic.css">
-  <link rel="stylesheet" href="css/project-climb.css">
-  <title>Optimization of Airfoils | Pantaleo Kiruwa</title>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3TTZ0YVPTH"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-3TTZ0YVPTH');</script>
+  <title>Redirecting | Pantaleo Kiruwa</title>
+  <meta http-equiv="refresh" content="0; url=projects/optimization-of-airfoils/">
+  <script>location.replace('projects/optimization-of-airfoils/' + location.search + location.hash);</script>
 </head>
-<body data-demo="airfoil">
-  <a class="skip" href="#case">Skip to content</a>
-  <canvas id="stars" aria-hidden="true"></canvas>
-  <aside class="rail" aria-label="Scroll altitude indicator">
-    <div class="rail-mark" aria-hidden="true">PK</div>
-    <div class="tape" aria-hidden="true"><div class="tape-scale" id="tape"></div></div>
-    <div class="readouts"><div><small>Altitude</small><b id="altV">0 m</b></div><div><small>Airspeed</small><b id="machV">Mach 0.0</b></div><div><small>Layer</small><b id="layerV">Troposphere</b></div></div>
-  </aside>
-  <header class="topbar">
-    <a class="name" href="index.html#home">Pantaleo Kiruwa</a>
-    <button class="burger" aria-label="Open navigation" aria-expanded="false">☰</button>
-    <nav class="nav" aria-label="Main navigation">
-      <a href="index.html#home">Home</a><a href="index.html#about">About</a><a href="index.html#experience">Experience</a><a class="active" href="index.html#projects">Projects</a><a class="nav-cta" href="index.html#contact">Let's connect</a>
-    </nav>
-  </header>
-
-  <main>
-    <section class="phero">
-      <div>
-        <a class="back" href="index.html#projects">← All projects</a>
-        <div class="mono">Aerodynamics</div>
-        <h1 aria-label="Optimization of Airfoils">
-          <span class="ln"><span>Optimization</span></span><span class="ln"><span>of Airfoils</span></span>
-        </h1>
-        <p class="lede">The abstract, methodology and insights, project overview, tools used and links to the official simulation report.</p>
-        <div class="hero-actions">
-          <a class="btn solid" href="Optimization%20of%20airfoils%20PCL_1%5B1%5D.pdf" rel="noreferrer">Open project report</a>
-          <a class="btn ghost" href="#case">Read the case</a>
-        </div>
-      </div>
-      <div class="demo" id="demo" role="img" aria-label="Interactive demo: airflow around an airfoil as the angle of attack changes">
-        <canvas></canvas>
-        <span class="demo-tag mono">Try it: flow around a cambered airfoil</span>
-        <span class="demo-hint mono">Move up and down to change angle of attack</span>
-        <div class="demo-hud" id="hud"></div>
-      </div>
-    </section>
-
-    <section class="sec" id="case">
-      <div class="wrap case">
-        <aside class="side">
-          <div><small>Tools used</small><p>X-Foil, ANSYS Fluent, MATLAB</p></div>
-          <div><small>Focus</small><p>Lift, drag and lift-to-drag ratio of the NACA 64A210 airfoil</p></div>
-          <div><small>Type</small><p>Aerodynamics, simulation</p></div>
-        </aside>
-        <div class="body">
-          <div class="block">
-            <h2>Better aerodynamics, by design.</h2>
-            <p class="first">Airfoil optimization is a crucial aspect of aerodynamic design in aerospace engineering. The objective is to enhance the aerodynamic performance of an airfoil by improving its lift, drag, and other performance characteristics.</p>
-            <p>This project focuses on the optimization of the NACA 64A210 airfoil using ANSYS software as the solver. The objective is to improve the aerodynamic performance of the airfoil by optimizing key parameters such as lift, drag, and lift-to-drag ratio.</p>
-            <p>Optimized airfoils play a vital role in achieving improved fuel efficiency, maneuverability, stability, and overall performance of aircraft and other aerodynamic systems.</p>
-            <p>The overall procedure provides valuable insights into the design and performance enhancement of airfoils in the aerospace industry and other domains that require efficient, high-performance aerodynamic designs.</p>
-            <p class="mono">The interactive panel above is a simplified illustration, not the project's ANSYS results.</p>
-          </div>
-          <div class="block">
-            <h2>Read the full reports.</h2>
-            <div class="links"><a class="btn solid" href="Ansys_Fluent_Simulation_Report.pdf" rel="noreferrer">Simulation report</a><a class="btn ghost" href="Optimization%20of%20airfoils%20PCL_1%5B1%5D.pdf" rel="noreferrer">Project report</a></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <a class="nextp" href="Project-3.html"><div><span class="mono">Next project</span><h2>Vibration with Variable Mass</h2></div><span class="go" aria-hidden="true">→</span></a>
-  </main>
-
-  <footer class="foot"><span>Designed with curiosity. Built for the journey.</span><span>© <span id="year">2026</span> Pantaleo Prosper Kiruwa</span></footer>
-  <script src="js/climb.js"></script>
-  <script src="js/project.js"></script>
-  <script src="//code.tidio.co/qowt5kyd8bxl5egcgkfzlqbwpndoaizb.js" async></script>
-</body>
+<body><p>This page has moved to <a href="projects/optimization-of-airfoils/">projects/optimization-of-airfoils/</a>.</p></body>
 </html>
