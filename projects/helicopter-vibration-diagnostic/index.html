@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a2a42">
+  <meta name="description" content="Helicopter vibration diagnostics for maintenance, using Nastran, Patran and CATIA V5. A project by Pantaleo Prosper Kiruwa.">
+  <meta property="og:title" content="Helicopter Vibration Diagnostic | Pantaleo Kiruwa">
+  <meta property="og:site_name" content="Pantaleo's Portfolio Website">
+  <meta property="og:description" content="How engineering analysis can inform maintenance thinking for rotorcraft.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="../../images/photo_2023-07-27_17-28-12.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Martian+Mono:wght@300;400;500&family=Unbounded:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/futuristic.css">
+  <link rel="stylesheet" href="../../css/project-climb.css">
+  <title>Helicopter Vibration Diagnostic | Pantaleo Kiruwa</title>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3TTZ0YVPTH"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-3TTZ0YVPTH');</script>
+</head>
+<body data-demo="heli">
+  <a class="skip" href="#case">Skip to content</a>
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <aside class="rail" aria-label="Scroll altitude indicator">
+    <div class="rail-mark" aria-hidden="true">PK</div>
+    <div class="tape" aria-hidden="true"><div class="tape-scale" id="tape"></div></div>
+    <div class="readouts"><div><small>Altitude</small><b id="altV">0 m</b></div><div><small>Airspeed</small><b id="machV">Mach 0.0</b></div><div><small>Layer</small><b id="layerV">Troposphere</b></div></div>
+  </aside>
+  <header class="topbar">
+    <a class="name" href="../../">Pantaleo Kiruwa</a>
+    <button class="burger" aria-label="Open navigation" aria-expanded="false">☰</button>
+    <nav class="nav" aria-label="Main navigation">
+      <a data-nav="home" href="../../">Home</a><a data-nav="about" href="../../#about">About</a><a data-nav="experience" href="../../#experience">Experience</a><a class="active" data-nav="projects" href="../../#projects">Projects</a><a class="nav-cta" href="../../#contact">Let's connect</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="phero">
+      <div>
+        <a class="back" href="../../#projects">← All projects</a>
+        <div class="mono">Structural dynamics and maintenance</div>
+        <h1 aria-label="Helicopter Vibration Diagnostic">
+          <span class="ln"><span>Helicopter</span></span><span class="ln"><span>Vibration</span></span><span class="ln"><span>Diagnostic</span></span>
+        </h1>
+        <p class="lede">Vibration diagnostics for maintenance: the abstract, methodology and insights, project overview, tools used and a link to the full analysis.</p>
+        <div class="hero-actions">
+          <a class="btn solid" href="https://github.com/Pantrovert/Helicopter-Vibration-Diagnostic-for-Maintenance" target="_blank" rel="noreferrer">View on GitHub</a>
+          <a class="btn ghost" href="#case">Read the case</a>
+        </div>
+      </div>
+      <div class="demo" id="demo" role="img" aria-label="Interactive demo: a helicopter tail boom vibrates more as rotor speed approaches its natural frequency">
+        <canvas></canvas>
+        <span class="demo-tag mono">Try it: tail-boom resonance</span>
+        <span class="demo-hint mono">Move left to right to change rotor speed</span>
+        <div class="demo-hud" id="hud"></div>
+      </div>
+    </section>
+
+    <section class="sec" id="case">
+      <div class="wrap case">
+        <aside class="side">
+          <div><small>Tools used</small><p>Nastran, Patran, CATIA V5</p></div>
+          <div><small>Focus</small><p>Vibration-prone areas in a simplified helicopter structural model</p></div>
+          <div><small>Type</small><p>Structural dynamics, predictive maintenance</p></div>
+        </aside>
+        <div class="body">
+          <div class="block">
+            <h2>Listening to the airframe.</h2>
+            <p class="first">Helicopters are essential tools in a wide range of industries, from emergency services to defence, but they require rigorous maintenance due to their intricate mechanical designs.</p>
+            <p>Modern sensors and complex algorithms are used by the HVD system to continuously detect and assess vibrations in helicopters. It provides predictive capabilities in addition to real-time monitoring, enabling proactive maintenance.</p>
+            <p>This research enables operators to recognize and fix mechanical defects before they become serious, saving downtime, lowering maintenance costs, and improving safety, by building a comprehensive database of vibration signatures across diverse helicopter models and operational settings.</p>
+            <p>The knowledge and technology created for this research also have broader uses, including structural health monitoring and industrial gear maintenance.</p>
+          </div>
+          <div class="block">
+            <h2>Dive into the details.</h2>
+            <p>The full analysis and files are on GitHub.</p>
+            <div class="links"><a class="btn solid" href="https://github.com/Pantrovert/Helicopter-Vibration-Diagnostic-for-Maintenance" target="_blank" rel="noreferrer">Project on GitHub</a><a class="btn ghost" href="../../#projects">Go back</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <a class="nextp" href="../hypersonic-vehicles/"><div><span class="mono">Next project</span><h2>Hypersonic Vehicles</h2></div><span class="go" aria-hidden="true">→</span></a>
+  </main>
+
+  <footer class="foot"><span>Designed with curiosity. Built for the journey.</span><span>© <span id="year">2026</span> Pantaleo Prosper Kiruwa</span></footer>
+  <script src="../../js/climb.js"></script>
+  <script src="../../js/project.js"></script>
+  <script src="//code.tidio.co/qowt5kyd8bxl5egcgkfzlqbwpndoaizb.js" async></script>
+</body>
+</html>
